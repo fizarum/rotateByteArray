@@ -24,10 +24,11 @@ void printArray(bytePtr array, size_t arraySize) {
 }
 
 /**
- * rotate image - faster solution
+ * rotate image - on 90 deg (cw direction)
  * @param data - original image to rotate
- * @param length - original image length, in pisels (bytes)
+ * @param length - original image length, in pixels (bytes)
  * @param width - image width
+ * @return rotated image
  */
 bytePtr rotate90cw(bytePtr data, size_t length, size_t width) {
     bytePtr result = new byte[length];
@@ -37,6 +38,21 @@ bytePtr rotate90cw(bytePtr data, size_t length, size_t width) {
             result[incr] = data[index];
             incr++;
         }
+    }
+    return result;
+}
+
+/**
+ * rotate image on 180 deg
+ * @param data - original image to rotate
+ * @param length - original image length, in pixels (bytes)
+ * @return rotated image
+ * */
+bytePtr rotate180(bytePtr data, size_t length) {
+    bytePtr result = new byte[length];
+    size_t i = 0;
+    for(long long int index = length - 1; index >= 0; --index, ++i) {
+        result[i] = data[index];
     }
     return result;
 }
@@ -53,6 +69,9 @@ int main() {
 
     bytePtr result = rotate90cw(test, arraySize, width);
     printArray(test, arraySize);
+    printArray(result, arraySize);
+    printf("\n180 deg test\n");
+    result = rotate180(test, arraySize);
     printArray(result, arraySize);
 
     return 0;
